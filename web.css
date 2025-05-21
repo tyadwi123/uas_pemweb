@@ -1,0 +1,156 @@
+/* General Styles */
+:root {
+  --bs-success-rgb: 25, 135, 84;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-success {
+  background-color: rgb(var(--bs-success-rgb));
+  border-color: rgb(var(--bs-success-rgb));
+}
+
+.btn-success:hover {
+  background-color: rgba(var(--bs-success-rgb), 0.9);
+  border-color: rgba(var(--bs-success-rgb), 0.9);
+}
+
+/* Navbar Styles */
+.navbar {
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('SampahBijak.jpg') no-repeat center center/cover;
+  height: 100vh;
+  min-height: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Features Section */
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Stats Section */
+#stats {
+  background-color: rgb(var(--bs-success-rgb));
+}
+
+/* Accordion Styles */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(var(--bs-success-rgb), 0.1);
+  color: rgb(var(--bs-success-rgb));
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(var(--bs-success-rgb), 0.25);
+}
+
+/* Contact Form */
+#contactForm .form-control {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+}
+
+#contactForm .form-control:focus {
+  border-color: rgb(var(--bs-success-rgb));
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-success-rgb), 0.25);
+}
+
+/* Footer */
+footer a:hover {
+  color: #ddd !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 100px 0;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .display-4 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
