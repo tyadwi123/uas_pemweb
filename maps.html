@@ -1,48 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LokasiBankSampah</title>
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-     <style>
-        #map { height: 600px; 
-        width: 50%;}
-        
-     </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>LokasiBankSampah</title>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+   <style>
+      #map {
+         height: 600px;
+         width: 100%;
+      }
 
-     <!-- Make sure you put this AFTER Leaflet's CSS -->
-      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""></script>
+      .tulisan {
+         color: green;
+      }
+   </style>
+
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
+
 <body>
-     <div id="map"></div>
-     <script>
-        var map = L.map('map').setView([-3.3161865750396724, 114.59077823857794], 13);
+   <div id="map"></div>
+   <script>
+      var map = L.map('map').setView([-3.3161865750396724, 114.59077823857794], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+         maxZoom: 19,
+         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+      var marker = L.marker([-3.2796021668539375, 114.5775595814034])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Induk", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jl. Hksn, Alalak Utara, Kec. Banjarmasin Utara<br>Jam Buka: 09.00–16.30");
 
-        var marker = L.marker([-3.27832032085685,114.57995312501818]).addTo(map);
+      var marker = L.marker([-3.291004812996148, 114.59732906036426])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Kunang Kunang", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jalur II A No.42, Sungai Miai, Kec. Banjarmasin Utara");
 
-        var marker = L.marker([-3.293396493120758, 114.59860072315826]).addTo(map);
-        var marker = L.marker([-3.3046692337091397, 114.60561132717363]).addTo(map);
-        var marker = L.marker([-3.3124734020075, 114.61032650853625]).addTo(map);
-        var marker = L.marker([-3.3125047728455113, 114.61522587031627]).addTo(map);
-        var marker = L.marker([-3.329781417527432, 114.61031401412427]).addTo(map);
-        var marker = L.marker([-3.333625499622326, 114.59359582814027]).addTo(map);
-        var marker = L.marker([-3.328239443881703, 114.60951132365729]).addTo(map);
-        var marker = L.marker([-3.3516687620247914, 114.599260782465]).addTo(map);
-        var marker = L.marker([]).addTo(map);
-        var marker = L.marker([]).addTo(map);
-        
-        
+      var marker = L.marker([-3.302690637817468, 114.60658174002991])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Kenanga", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jl. Sultan Adam, Sungai Jingah, Kec. Banjarmasin Utara<br>Jam Buka: Sabtu (15.30-17.30)<br> Minggu (08.30-10.00)");
 
-     </script>
+      var marker = L.marker([-3.311371447104756, 114.6127130338623])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Lestari", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jl. 9 Nopember, Benua Anyar, Kec. Banjarmasin Timur<br>Jam Buka: sabtu (07.00–09.00)");
+
+      var marker = L.marker([-3.314821491213811, 114.61683772244048])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Mitra 19", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Komplek A Yani 1, Jl. Veteran No.01, Pengambangan, Kec. Banjarmasin Timur");
+
+      var marker = L.marker([-3.3329618474687943, 114.59064037606562])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Morse Indah", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jl. 09 Oktober Gg. Moroseneng No.59, RT.24/RW.02, Pekauman, Kec. Banjarmasin Selatan ");
+
+      var marker = L.marker([-3.328510257200677, 114.60992608212031])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Palui", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: GG.pintu air, Jl. Karang Paci, Karang Mekar, Kec. Banjarmasin Timur ");
+
+      var marker = L.marker([-3.349828748287562, 114.59690065171083])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Mahatama RT 23 ", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Komplek Graha Mahatama, Jl. Mangga VII No.147, RT.23/RW.02, Tj. Pagar, Kec. Banjarmasin Selatan<br>Jam Buka: Sabtu (08.00–12.00)");
+
+      var marker = L.marker([-3.3110445032712317, 114.60994788623515])
+         .addTo(map)
+         .bindTooltip("Bank Sampah Tugu Benua Anyar", { permanent: true, direction: "left", className: "tulisan" })
+         .bindPopup("<b>Alamat: Jl. Kol Soepirman No.36 Benua Anyar Kec. Banjarmasin Timur<br>Jam Buka: 08.00–11.00");
+
+
+
+
+      var marker = L.marker([-3.2732786310341453, 114.59676913557503])
+         .addTo(map)
+         .bindTooltip("TPS Terminal Handil", { permanent: true, direction: "top" })
+         .bindPopup("<b>Alamat: Jl. Trans - Kalimantan, Handil Bakti, Kec. Alalak2<br>Jam Buka: 24 Jam");
+
+
+      var marker = L.marker([-3.2877837800741623, 114.59431353706479])
+         .addTo(map)
+         .bindTooltip("TPS Cemara ", { permanent: true, direction: "top" })
+         .bindPopup("<b>Alamat: Jl. Cemara Raya No.60, Sungai Miai, Kec. Banjarmasin Utara");
+
+      var marker = L.marker([-3.296568486141781, 114.60495446394262])
+         .addTo(map)
+         .bindTooltip("TPS Surgi Mufti", { permanent: true, direction: "top" })
+         .bindPopup("<b>Alamat: Gedung Taekwondo, Samping Jl. Sultan Adam, Surgi Mufti<br>Jam Buka: 24 Jam");
+
+      var marker = L.marker([-3.316793444387024, 114.62296218635124])
+         .addTo(map)
+         .bindTooltip("TPS Vetran ", { permanent: true, direction: "top" })
+         .bindPopup("<b>Alamat: Jl. Veteran Komp. A. Yani No.3, RT.11/RW.11, Pengambangan, Kec. Banjarmasin Timur");
+
+      var marker = L.marker([-3.2855365172482327, 114.61047956059072])
+         .addTo(map)
+         .bindTooltip("TPS Kayu Bulan ", { permanent: true, direction: "top" })
+         .bindPopup("<b>Alamat:Jl. Sungai Andai Komp. Kayu Bulan No.29, Sungai Jingah, Kec. Banjarmasin Utara ");
+
+      var marker = L.marker([-3.365004803032881, 114.58060311230457])
+         .addTo(map)
+         .bindTooltip("TPA Basirih ", { permanent: true, direction: "top" })
+         .bindPopup("<b>Jl. Gubernur Soebardjo Jl. Handil Palung No.Kel, Basirih Selatan, Kec. Banjarmasin Selatan<br>Jam Buka: Tutup Sementara");
+
+      var marker = L.marker([-3.223346314451889, 114.61937099386807])
+         .addTo(map)
+         .bindTooltip("TPS Puntik ", { permanent: true, direction: "top", })
+         .bindPopup("<b>Alamat: Jl. Banjarmasin - Marabahan, Handil Bakti, Kec. Alalak<br>Jam Buka: 24 Jam");
+
+
+
+
+
+
+
+   </script>
 </body>
+
 </html>
