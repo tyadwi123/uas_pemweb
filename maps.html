@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LokasiBankSampah</title>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <style>
+        #map { height: 600px; 
+        width: 50%;}
+        
+     </style>
+
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+</head>
+<body>
+     <div id="map"></div>
+     <script>
+        var map = L.map('map').setView([-3.3161865750396724, 114.59077823857794], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([-3.27832032085685,114.57995312501818]).addTo(map);
+
+        var marker = L.marker([-3.293396493120758, 114.59860072315826]).addTo(map);
+        var marker = L.marker([-3.3046692337091397, 114.60561132717363]).addTo(map);
+        var marker = L.marker([-3.3124734020075, 114.61032650853625]).addTo(map);
+        var marker = L.marker([-3.3125047728455113, 114.61522587031627]).addTo(map);
+        var marker = L.marker([-3.329781417527432, 114.61031401412427]).addTo(map);
+        var marker = L.marker([-3.333625499622326, 114.59359582814027]).addTo(map);
+        var marker = L.marker([-3.328239443881703, 114.60951132365729]).addTo(map);
+        var marker = L.marker([-3.3516687620247914, 114.599260782465]).addTo(map);
+        var marker = L.marker([]).addTo(map);
+        var marker = L.marker([]).addTo(map);
+        
+        
+
+     </script>
+</body>
+</html>
