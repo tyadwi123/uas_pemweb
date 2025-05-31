@@ -4,124 +4,272 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>LokasiBankSampah</title>
+   <title>Lokasi Bank Sampah Banjarmasin</title>
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
    <style>
       #map {
          height: 600px;
          width: 100%;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
       }
 
-      .tulisan {
-         color: green;
+      .bank-sampah-tooltip {
+         color: #28a745;
+         font-weight: bold;
+         font-size: 14px;
+      }
+
+      .tps-tooltip {
+         color: #dc3545;
+         font-weight: bold;
+         font-size: 14px;
+      }
+
+      .header {
+         background-color: #28a745;
+         color: white;
+         padding: 20px 0;
+         margin-bottom: 20px;
+         border-radius: 0 0 8px 8px;
+      }
+
+      .legend {
+         padding: 10px;
+         background: white;
+         border-radius: 5px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         line-height: 1.5;
+      }
+
+      .legend i {
+         width: 18px;
+         height: 18px;
+         float: left;
+         margin-right: 8px;
+         opacity: 0.7;
+      }
+
+      .container {
+         max-width: 1200px;
       }
    </style>
-
-   <!-- Make sure you put this AFTER Leaflet's CSS -->
-   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
 <body>
-   <div id="map"></div>
+   <div class="header text-center">
+      <div class="container">
+         <h1><i class="fas fa-recycle"></i> Lokasi Bank Sampah Banjarmasin</h1>
+         <p class="lead">Temukan bank sampah dan TPS terdekat di wilayah Banjarmasin</p>
+      </div>
+   </div>
+
+   <div class="container mb-4">
+      <div class="row">
+         <div class="col-md-8">
+            <div id="map"></div>
+         </div>
+         <div class="col-md-4">
+            <div class="card">
+               <div class="card-header bg-success text-white">
+                  <h5 class="card-title mb-0"><i class="fas fa-info-circle"></i> Informasi</h5>
+               </div>
+               <div class="card-body">
+                  <p>Peta ini menampilkan lokasi bank sampah dan tempat pembuangan sampah (TPS) di Banjarmasin.</p>
+                  <div class="legend">
+                     <h6>Keterangan:</h6>
+                     <p><i class="fas fa-map-marker-alt text-success"></i> Bank Sampah</p>
+                     <p><i class="fas fa-trash-alt text-danger"></i> Tempat Pembuangan Sampah</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Font Awesome -->
+   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+   <!-- Leaflet JS -->
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+   <!-- Bootstrap JS -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
    <script>
+      // Initialize the map
       var map = L.map('map').setView([-3.3161865750396724, 114.59077823857794], 13);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          maxZoom: 19,
-         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      var marker = L.marker([-3.2796021668539375, 114.5775595814034])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Induk", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jl. Hksn, Alalak Utara, Kec. Banjarmasin Utara<br>Jam Buka: 09.00–16.30");
+      // Custom icons
+      var bankIcon = L.icon({
+         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+         iconSize: [25, 41],
+         iconAnchor: [12, 41],
+         popupAnchor: [1, -34],
+         shadowSize: [41, 41]
+      });
 
-      var marker = L.marker([-3.291004812996148, 114.59732906036426])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Kunang Kunang", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jalur II A No.42, Sungai Miai, Kec. Banjarmasin Utara");
+      var tpsIcon = L.icon({
+         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+         iconSize: [25, 41],
+         iconAnchor: [12, 41],
+         popupAnchor: [1, -34],
+         shadowSize: [41, 41]
+      });
 
-      var marker = L.marker([-3.302690637817468, 114.60658174002991])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Kenanga", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jl. Sultan Adam, Sungai Jingah, Kec. Banjarmasin Utara<br>Jam Buka: Sabtu (15.30-17.30)<br> Minggu (08.30-10.00)");
+      // Bank Sampah Locations
+      var bankSampahLocations = [
+         {
+            coords: [-3.2796021668539375, 114.5775595814034],
+            name: "Bank Sampah Induk",
+            address: "Jl. Hksn, Alalak Utara, Kec. Banjarmasin Utara",
+            hours: "09.00–16.30"
+         },
+         {
+            coords: [-3.291004812996148, 114.59732906036426],
+            name: "Bank Sampah Kunang Kunang",
+            address: "Jalur II A No.42, Sungai Miai, Kec. Banjarmasin Utara"
+         },
+         {
+            coords: [-3.302690637817468, 114.60658174002991],
+            name: "Bank Sampah Kenanga",
+            address: "Jl. Sultan Adam, Sungai Jingah, Kec. Banjarmasin Utara",
+            hours: "Sabtu (15.30-17.30)<br>Minggu (08.30-10.00)"
+         },
+         {
+            coords: [-3.311371447104756, 114.6127130338623],
+            name: "Bank Sampah Lestari",
+            address: "Jl. 9 Nopember, Benua Anyar, Kec. Banjarmasin Timur",
+            hours: "Sabtu (07.00–09.00)"
+         },
+         {
+            coords: [-3.314821491213811, 114.61683772244048],
+            name: "Bank Sampah Mitra 19",
+            address: "Komplek A Yani 1, Jl. Veteran No.01, Pengambangan, Kec. Banjarmasin Timur"
+         },
+         {
+            coords: [-3.3329618474687943, 114.59064037606562],
+            name: "Bank Sampah Morse Indah",
+            address: "Jl. 09 Oktober Gg. Moroseneng No.59, RT.24/RW.02, Pekauman, Kec. Banjarmasin Selatan"
+         },
+         {
+            coords: [-3.328510257200677, 114.60992608212031],
+            name: "Bank Sampah Palui",
+            address: "GG.pintu air, Jl. Karang Paci, Karang Mekar, Kec. Banjarmasin Timur"
+         },
+         {
+            coords: [-3.349828748287562, 114.59690065171083],
+            name: "Bank Sampah Mahatama RT 23",
+            address: "Komplek Graha Mahatama, Jl. Mangga VII No.147, RT.23/RW.02, Tj. Pagar, Kec. Banjarmasin Selatan",
+            hours: "Sabtu (08.00–12.00)"
+         },
+         {
+            coords: [-3.3110445032712317, 114.60994788623515],
+            name: "Bank Sampah Tugu Benua Anyar",
+            address: "Jl. Kol Soepirman No.36 Benua Anyar Kec. Banjarmasin Timur",
+            hours: "08.00–11.00"
+         }
+      ];
 
-      var marker = L.marker([-3.311371447104756, 114.6127130338623])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Lestari", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jl. 9 Nopember, Benua Anyar, Kec. Banjarmasin Timur<br>Jam Buka: sabtu (07.00–09.00)");
+      // TPS Locations
+      var tpsLocations = [
+         {
+            coords: [-3.2732786310341453, 114.59676913557503],
+            name: "TPS Terminal Handil",
+            address: "Jl. Trans - Kalimantan, Handil Bakti, Kec. Alalak",
+            hours: "24 Jam"
+         },
+         {
+            coords: [-3.2877837800741623, 114.59431353706479],
+            name: "TPS Cemara",
+            address: "Jl. Cemara Raya No.60, Sungai Miai, Kec. Banjarmasin Utara"
+         },
+         {
+            coords: [-3.296568486141781, 114.60495446394262],
+            name: "TPS Surgi Mufti",
+            address: "Gedung Taekwondo, Samping Jl. Sultan Adam, Surgi Mufti",
+            hours: "24 Jam"
+         },
+         {
+            coords: [-3.316793444387024, 114.62296218635124],
+            name: "TPS Vetran",
+            address: "Jl. Veteran Komp. A. Yani No.3, RT.11/RW.11, Pengambangan, Kec. Banjarmasin Timur"
+         },
+         {
+            coords: [-3.2855365172482327, 114.61047956059072],
+            name: "TPS Kayu Bulan",
+            address: "Jl. Sungai Andai Komp. Kayu Bulan No.29, Sungai Jingah, Kec. Banjarmasin Utara"
+         },
+         {
+            coords: [-3.365004803032881, 114.58060311230457],
+            name: "TPA Basirih",
+            address: "Jl. Gubernur Soebardjo Jl. Handil Palung No.Kel, Basirih Selatan, Kec. Banjarmasin Selatan",
+            hours: "Tutup Sementara"
+         },
+         {
+            coords: [-3.223346314451889, 114.61937099386807],
+            name: "TPS Puntik",
+            address: "Jl. Banjarmasin - Marabahan, Handil Bakti, Kec. Alalak",
+            hours: "24 Jam"
+         }
+      ];
 
-      var marker = L.marker([-3.314821491213811, 114.61683772244048])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Mitra 19", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Komplek A Yani 1, Jl. Veteran No.01, Pengambangan, Kec. Banjarmasin Timur");
+      // Add Bank Sampah markers
+      bankSampahLocations.forEach(function(location) {
+         var popupContent = `<b>${location.name}</b><br>Alamat: ${location.address}`;
+         if (location.hours) {
+            popupContent += `<br>Jam Buka: ${location.hours}`;
+         }
+         
+         L.marker(location.coords, {icon: bankIcon})
+            .addTo(map)
+            .bindTooltip(location.name, {
+               permanent: true,
+               direction: "right",
+               className: "bank-sampah-tooltip"
+            })
+            .bindPopup(popupContent);
+      });
 
-      var marker = L.marker([-3.3329618474687943, 114.59064037606562])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Morse Indah", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jl. 09 Oktober Gg. Moroseneng No.59, RT.24/RW.02, Pekauman, Kec. Banjarmasin Selatan ");
+      // Add TPS markers
+      tpsLocations.forEach(function(location) {
+         var popupContent = `<b>${location.name}</b><br>Alamat: ${location.address}`;
+         if (location.hours) {
+            popupContent += `<br>Jam Buka: ${location.hours}`;
+         }
+         
+         L.marker(location.coords, {icon: tpsIcon})
+            .addTo(map)
+            .bindTooltip(location.name, {
+               permanent: true,
+               direction: "right",
+               className: "tps-tooltip"
+            })
+            .bindPopup(popupContent);
+      });
 
-      var marker = L.marker([-3.328510257200677, 114.60992608212031])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Palui", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: GG.pintu air, Jl. Karang Paci, Karang Mekar, Kec. Banjarmasin Timur ");
-
-      var marker = L.marker([-3.349828748287562, 114.59690065171083])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Mahatama RT 23 ", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Komplek Graha Mahatama, Jl. Mangga VII No.147, RT.23/RW.02, Tj. Pagar, Kec. Banjarmasin Selatan<br>Jam Buka: Sabtu (08.00–12.00)");
-
-      var marker = L.marker([-3.3110445032712317, 114.60994788623515])
-         .addTo(map)
-         .bindTooltip("Bank Sampah Tugu Benua Anyar", { permanent: true, direction: "left", className: "tulisan" })
-         .bindPopup("<b>Alamat: Jl. Kol Soepirman No.36 Benua Anyar Kec. Banjarmasin Timur<br>Jam Buka: 08.00–11.00");
-
-
-
-
-      var marker = L.marker([-3.2732786310341453, 114.59676913557503])
-         .addTo(map)
-         .bindTooltip("TPS Terminal Handil", { permanent: true, direction: "top" })
-         .bindPopup("<b>Alamat: Jl. Trans - Kalimantan, Handil Bakti, Kec. Alalak2<br>Jam Buka: 24 Jam");
-
-
-      var marker = L.marker([-3.2877837800741623, 114.59431353706479])
-         .addTo(map)
-         .bindTooltip("TPS Cemara ", { permanent: true, direction: "top" })
-         .bindPopup("<b>Alamat: Jl. Cemara Raya No.60, Sungai Miai, Kec. Banjarmasin Utara");
-
-      var marker = L.marker([-3.296568486141781, 114.60495446394262])
-         .addTo(map)
-         .bindTooltip("TPS Surgi Mufti", { permanent: true, direction: "top" })
-         .bindPopup("<b>Alamat: Gedung Taekwondo, Samping Jl. Sultan Adam, Surgi Mufti<br>Jam Buka: 24 Jam");
-
-      var marker = L.marker([-3.316793444387024, 114.62296218635124])
-         .addTo(map)
-         .bindTooltip("TPS Vetran ", { permanent: true, direction: "top" })
-         .bindPopup("<b>Alamat: Jl. Veteran Komp. A. Yani No.3, RT.11/RW.11, Pengambangan, Kec. Banjarmasin Timur");
-
-      var marker = L.marker([-3.2855365172482327, 114.61047956059072])
-         .addTo(map)
-         .bindTooltip("TPS Kayu Bulan ", { permanent: true, direction: "top" })
-         .bindPopup("<b>Alamat:Jl. Sungai Andai Komp. Kayu Bulan No.29, Sungai Jingah, Kec. Banjarmasin Utara ");
-
-      var marker = L.marker([-3.365004803032881, 114.58060311230457])
-         .addTo(map)
-         .bindTooltip("TPA Basirih ", { permanent: true, direction: "top" })
-         .bindPopup("<b>Jl. Gubernur Soebardjo Jl. Handil Palung No.Kel, Basirih Selatan, Kec. Banjarmasin Selatan<br>Jam Buka: Tutup Sementara");
-
-      var marker = L.marker([-3.223346314451889, 114.61937099386807])
-         .addTo(map)
-         .bindTooltip("TPS Puntik ", { permanent: true, direction: "top", })
-         .bindPopup("<b>Alamat: Jl. Banjarmasin - Marabahan, Handil Bakti, Kec. Alalak<br>Jam Buka: 24 Jam");
-
-
-
-
-
-
-
+      // Add legend
+      var legend = L.control({position: 'bottomright'});
+      legend.onAdd = function(map) {
+         var div = L.DomUtil.create('div', 'legend');
+         div.innerHTML = `
+            <h6>Keterangan:</h6>
+            <p><i class="fas fa-map-marker-alt text-success"></i> Bank Sampah</p>
+            <p><i class="fas fa-trash-alt text-danger"></i> Tempat Pembuangan Sampah</p>
+         `;
+         return div;
+      };
+      legend.addTo(map);
    </script>
 </body>
 
