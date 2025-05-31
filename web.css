@@ -97,12 +97,10 @@ a {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Stats Section */
 #stats {
   background-color: rgb(var(--bs-success-rgb));
 }
 
-/* Accordion Styles */
 .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-success-rgb), 0.1);
   color: rgb(var(--bs-success-rgb));
