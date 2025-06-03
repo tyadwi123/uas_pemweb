@@ -146,7 +146,6 @@
                .bindPopup(popupContent);
          });
 
-         // Add TPS markers
          data.tpsLocations.forEach(function(location) {
             var popupContent = `<b>${location.name}</b><br>Alamat: ${location.address}`;
             if (location.hours) {
@@ -164,7 +163,6 @@
          });
       }
 
-      // Add legend
       var legend = L.control({position: 'bottomright'});
       legend.onAdd = function(map) {
          var div = L.DomUtil.create('div', 'legend');
@@ -177,7 +175,6 @@
       };
       legend.addTo(map);
 
-      // Fetch the JSON data
       fetch('locations.json')
          .then(response => response.json())
          .then(data => {
