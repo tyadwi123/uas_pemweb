@@ -4,7 +4,7 @@
       "coords": [-3.2796021668539375, 114.5775595814034],
       "name": "Bank Sampah Induk",
       "address": "Jl. Hksn, Alalak Utara, Kec. Banjarmasin Utara",
-      "hours": "09.00–16.30"
+      "hours": "09.00-16.30"
     },
     {
       "coords": [-3.291004812996148, 114.59732906036426],
@@ -21,7 +21,7 @@
       "coords": [-3.311371447104756, 114.6127130338623],
       "name": "Bank Sampah Lestari",
       "address": "Jl. 9 Nopember, Benua Anyar, Kec. Banjarmasin Timur",
-      "hours": "Sabtu (07.00–09.00)"
+      "hours": "Sabtu (07.00-09.00)"
     },
     {
       "coords": [-3.314821491213811, 114.61683772244048],
@@ -42,13 +42,13 @@
       "coords": [-3.349828748287562, 114.59690065171083],
       "name": "Bank Sampah Mahatama RT 23",
       "address": "Komplek Graha Mahatama, Jl. Mangga VII No.147, RT.23/RW.02, Tj. Pagar, Kec. Banjarmasin Selatan",
-      "hours": "Sabtu (08.00–12.00)"
+      "hours": "Sabtu (08.00-12.00)"
     },
     {
       "coords": [-3.3110445032712317, 114.60994788623515],
       "name": "Bank Sampah Tugu Benua Anyar",
       "address": "Jl. Kol Soepirman No.36 Benua Anyar Kec. Banjarmasin Timur",
-      "hours": "08.00–11.00"
+      "hours": "08.00-11.00"
     }
   ],
   "tpsLocations": [
