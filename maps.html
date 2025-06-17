@@ -110,16 +110,15 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
    <script>
-      // Initialize the map
+      // analisis map
       var map = L.map('map').setView([-3.3161865750396724, 114.59077823857794], 13);
 
-      // Add OpenStreetMap tiles
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          maxZoom: 19,
          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      // Custom icons
+      // icon 
       var bankIcon = L.icon({
          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -138,9 +137,9 @@
          shadowSize: [41, 41]
       });
 
-      // Function to add markers
+      // untuk penambahan penandaa
       function addMarkers(data) {
-         // Add Bank Sampah markers
+         // untuk data bank sampah
          data.bankSampahLocations.forEach(function (location) {
             var popupContent = `<b>${location.name}</b><br>Alamat: ${location.address}`;
             if (location.hours) {
