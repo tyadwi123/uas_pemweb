@@ -166,18 +166,6 @@
                .bindPopup(popupContent);
          });
       }
-      // Keterangan kotak pojok kanan
-      var legend = L.control({ position: 'bottomright' });
-      legend.onAdd = function (map) {
-         var div = L.DomUtil.create('div', 'legend');
-         div.innerHTML = `
-            <h6>Keterangan:</h6>
-            <p><i class="fas fa-map-marker-alt text-success"></i> Bank Sampah</p>
-            <p><i class="fas fa-trash-alt text-danger"></i> Tempat Pembuangan Sampah</p>
-         `;
-         return div;
-      };
-      legend.addTo(map);
       
       // ambil data json
       fetch('locations.json')
