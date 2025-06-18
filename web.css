@@ -1,3 +1,4 @@
+/* General Styles */
 :root {
   --bs-success-rgb: 25, 135, 84;
 }
@@ -9,7 +10,7 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
@@ -34,7 +35,7 @@ a {
   border-color: rgba(var(--bs-success-rgb), 0.9);
 }
 
-/* Navbar */
+/* Navbar Styles */
 .navbar {
   padding: 1rem 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -59,14 +60,43 @@ a {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive */
+/* Features Section */
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#stats {
+  background-color: rgb(var(--bs-success-rgb));
+}
+
+/* Footer */
+footer a:hover {
+  color: #ddd !important;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .hero-section {
     height: auto;
     padding: 100px 0;
   }
-
+  
   .hero-section h1 {
     font-size: 2.5rem;
   }
 }
+
