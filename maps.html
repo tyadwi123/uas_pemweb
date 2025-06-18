@@ -165,7 +165,7 @@
                .bindPopup(popupContent);
          });
       }
-
+      // Keterangan kotak pojok kanan
       var legend = L.control({ position: 'bottomright' });
       legend.onAdd = function (map) {
          var div = L.DomUtil.create('div', 'legend');
@@ -177,7 +177,8 @@
          return div;
       };
       legend.addTo(map);
-
+      
+      // ambil data json
       fetch('locations.json')
          .then(response => response.json())
          .then(data => {
